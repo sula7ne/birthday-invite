@@ -20,7 +20,7 @@ export const guest = guestDto.extend({
 export const guestDb = z.object({
     id: z.uuid(),
     name: z.string().trim().min(3, "Имя должно содержать минимум 3 символа").max(30, "Имя слишком длинное"),
-    isCome: z.boolean(),
+    is_come: z.boolean(),
     comment: z.string().optional(),
     created_at: z.string(),
 });
