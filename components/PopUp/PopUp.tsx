@@ -42,7 +42,7 @@ const PopUp = ({ setIsPopUp, isCome }: PopUpProps) => {
         <div onClick={handleClose} className={styles.container}>
             <div className={styles['pop-up']}>
                 <button onClick={() => setIsPopUp(false)} className={styles.close}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 23 23"> <g fillRule="evenodd"> <path d="M0 1.41L1.4 0l21.22 21.21-1.41 1.42z"></path> <path d="M21.21 0l1.42 1.4L1.4 22.63 0 21.21z"></path> </g> </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#495865" width="100%" height="100%" viewBox="0 0 23 23"> <g fillRule="evenodd"> <path d="M0 1.41L1.4 0l21.22 21.21-1.41 1.42z"></path> <path d="M21.21 0l1.42 1.4L1.4 22.63 0 21.21z"></path> </g> </svg>
                 </button>
 
                 <div className={styles.content}>

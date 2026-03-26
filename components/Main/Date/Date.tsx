@@ -22,6 +22,8 @@ const Date = () => {
                         <td>
                             <div className={styles.month}>Апрель</div>
                             <div className={styles.day}>7</div>
+
+                            <Image src={outlineImg} alt="выделенная клетка таблицы" /> 
                         </td>
                         <td>
                             <div className={styles.month}>Апрель</div>
@@ -30,8 +32,6 @@ const Date = () => {
                     </tr>
                 </tbody>
             </table>
-            
-            <Image src={outlineImg} alt="выделенная клетка таблицы" /> 
         </div>
     );
 }

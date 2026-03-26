@@ -65,16 +65,18 @@ const Form = () => {
 
     const onSubmit = async (data: GuestForm) => {
         try {
-            setSuccess(false);
             const formattedData = { ...data, isCome: data.isCome === "true" };
             setIsCome(formattedData.isCome);
 
-            const result = await dispatch(addGuest(formattedData));
-            if (addGuest.fulfilled.match(result)) {
-                setSuccess(true);
-                setIsPopUp(true);
-                reset();
-            }
+            setSuccess(true);
+            setIsPopUp(true);
+            reset();
+
+            dispatch(addGuest(formattedData))
+                .unwrap()
+                .catch((e) => {
+                    setSuccess(false);
+                });
         } catch(e) { console.log(e); }
     };
 
@@ -113,7 +115,8 @@ const Form = () => {
                     type="submit" 
                     disabled={isSubmitting}
                 >
-                    {isLoading ? 'Загрузка...' : 'Отправить'}
+                    {/* {isLoading ? 'Загрузка...' : 'Отправить'} */}
+                    Отправить
                 </button>
 
                 {success && isPopUp && <PopUp isCome={isCome} setIsPopUp={setIsPopUp} />}

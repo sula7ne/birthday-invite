@@ -55,7 +55,7 @@ const Countdown = () => {
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: containerRef.current,
-                            start: "top 95%", // Срабатывает, когда блок почти вошел в экран
+                            start: "top 20%", // Срабатывает, когда блок почти вошел в экран
                             toggleActions: "play none none reverse",
                         }
                     }
