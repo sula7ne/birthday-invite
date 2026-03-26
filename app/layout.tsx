@@ -11,8 +11,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-    title: "Bithday invite app",
-    description: "Bithday invite app",
+    title: "Sagynysh's birthday invite",
+    description: "Sagynysh's birthday invite app",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

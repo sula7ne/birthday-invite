@@ -30,11 +30,10 @@
     }
 
     .wrapper {
-        height: 100vh;
+        height: 100dvh;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding-bottom: 20px;
 
         .title {
             font-family: 'Seasons', Arial, sans-serif;
@@ -178,7 +177,6 @@
                     }
                     .cake img {
                         width: 80%;
-                        padding-bottom: 60px;
                     }
                 }
             }

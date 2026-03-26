@@ -1,10 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
 import styles from "@/components/Main/Countdown/Countdown.module.scss";
 
 const Countdown = () => {
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const calculateTime = useCallback(() => {
         const targetDate = new Date("2026-04-07T20:00:00");
@@ -34,10 +37,39 @@ const Countdown = () => {
         return () => clearInterval(interval);
     }, [calculateTime]);
 
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const ctx = gsap.context(() => {
+            if (containerRef.current) {
+                gsap.fromTo(containerRef.current.children, 
+                    { 
+                        opacity: 0, 
+                        y: 40 
+                    }, 
+                    { 
+                        opacity: 1, 
+                        y: 0, 
+                        duration: 0.8, 
+                        stagger: 0.15,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: containerRef.current,
+                            start: "top 95%",
+                            toggleActions: "play none none reverse",
+                        }
+                    }
+                );
+            }
+        }, containerRef);
+
+        return () => ctx.revert();
+    }, []);
+
     const format = (n: number) => String(n).padStart(2, "0");
 
     return (
-        <div className={styles.countdown}>
+        <div ref={containerRef} className={styles.countdown}>
             <div className={styles.item}>
                 <span>{format(time.days)}</span>
                 <p>Дней</p>
