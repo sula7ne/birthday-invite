@@ -4,23 +4,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ApiErrorResponse } from "@/types/error";
 import axios from "axios";
 
-export const fetchGuests = createAsyncThunk<Guest[], void, { rejectValue: ApiErrorResponse }>(
-    "guests/fetchGuests",
-    async (_, { rejectWithValue }) => {
-        try {
-            const res = await axios.get<Guest[]>("/api/guests");
-        
-            return res.data;
-        } catch(err) {
-            if (axios.isAxiosError(err)) {
-                return rejectWithValue(err.response?.data || { message: err.message });
-            }
-            
-            return rejectWithValue({ message: (err as Error).message });
-        }
-    }
-);
-
 export const addGuest = createAsyncThunk<Guest, GuestDto, { rejectValue: ApiErrorResponse }>(
     "guests/addGuest",
     async (guest, { rejectWithValue }) => {
@@ -58,20 +41,6 @@ const guestsSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            // fetchGuests
-            .addCase(fetchGuests.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-            })
-            .addCase(fetchGuests.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.guests = action.payload;
-            })
-            .addCase(fetchGuests.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload ?? { message: "Unknown error" };
-            })
-
             // addGuest
             .addCase(addGuest.pending, (state) => {
                 state.isLoading = true;

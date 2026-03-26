@@ -51,7 +51,7 @@ const PopUp = ({ setIsPopUp, isCome }: PopUpProps) => {
                     
                     {isCome ? 
                         <>
-                            <h2>Спасибо! 💌</h2>
+                            <h2>see ya❤️</h2>
                             <p>Жду тебя на празднике без опозданий!</p>
                         </> 
                         :

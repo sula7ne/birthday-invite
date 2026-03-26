@@ -34,6 +34,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        padding-bottom: 20px;
 
         .title {
             font-family: 'Seasons', Arial, sans-serif;
@@ -91,7 +92,7 @@
     }
 
     .description {
-        margin: 60px 159px;
+        margin: 0 159px 60px 159px;
         font-size: 30px;
         font-family: 'Seasons', Arial, sans-serif;
         letter-spacing: 1.4;
@@ -110,7 +111,6 @@
             .content {
                 .center {
                     .date {
-                        left: 50px;
                         font-size: 70px;
                     }
                     .cake {
@@ -119,20 +119,40 @@
                         }
                     }
                     .time {
-                        right: 50px;
                         font-size: 60px;
                     }
                 }
             }
         }
-    }
 
-    .description {
-        margin: 80px auto 0;
-        font-size: 30px;
-        width: 90%;
-        text-align: center;
-        line-height: 48px;
+        .description {
+            margin: 60px auto 0;
+            font-size: 25px;
+            width: 90%;
+            text-align: center;
+            line-height: 36px;
+        }
+    }
+}
+
+@media (max-width: 560px) {
+    .top {
+        .wrapper {
+            .content {
+                .center {
+                    .container {
+                        column-gap: 160px;
+
+                        .date {
+                            font-size: 45px;
+                        }
+                        .time {
+                            font-size: 35px;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -146,16 +166,14 @@
             .content {
                 .center {
                     .container {
-                        column-gap: 200px;
+                        column-gap: 160px;
                         margin-left: 20px;
                         
                         .date {
-                            left: 10px;
-                            font-size: 45px;
+                            font-size: 50px;
                         }
                         .time {
-                            right: 10px;
-                            font-size: 35px;
+                            font-size: 40px;
                         }
                     }
                     .cake img {
@@ -166,6 +184,7 @@
         }
 
         .description {
+            margin-top: 40px;
             font-size: 20px;
             line-height: 28px;
         }
@@ -183,14 +202,14 @@
             .content {
                 .center {
                     .container {
+                        column-gap: 140px;
+
                         .date {
-                            left: 10px;
-                            font-size: 40px;
+                            font-size: 35px;
                         }
                         .time {
-                            right: 10px;
                             bottom: 60px;
-                            font-size: 30px;
+                            font-size: 25px;
                         }
                     }
                     .cake img {
@@ -203,7 +222,7 @@
         .description {
             font-size: 18px;
             line-height: 26px;
-            margin: 40px auto 0;
+            margin: 30px auto 0;
         }
     }
 }

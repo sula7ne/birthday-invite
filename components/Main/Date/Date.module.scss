@@ -28,7 +28,7 @@
         th {
             font-size: 30px;
             text-transform: uppercase;
-            padding: 20px 0;
+            padding: 18px 0;
         }
         td {
             position: relative;
@@ -36,7 +36,6 @@
 
             .month {
                 font-size: 30px;
-                margin-bottom: 10px;
             }
             .day {
                 font-size: 120px;
@@ -73,14 +72,13 @@
     }
 }
 
-@media (max-width: 975px) {
+@media (max-width: 885px) {
     .date {
         .table {
-            th {
-                font-size: 25px;
-            }
             td {
-                font-size: 25px;
+                img {
+                    width: 110%;
+                }
             }
         }
     }
@@ -115,34 +113,42 @@
 
 @media (max-width: 675px) {
     .date {
-        img {
-
-        }
-
         .table {
             th {
                 font-size: 20px;
+                padding: 10px 0;
             }
 
             td {
                 .month {
                     font-size: 25px;
                 }
+                .day {
+                    font-size: 110px;
+                }
+                img {
+                    width: 105%;
+                }
             }
         }
     }
 }
 
-@media (max-width: 675px) {
+@media (max-width: 600px) {
     .date {
-        img {
-
-        }
-
         .table {
+            th {
+                font-size: 18px;
+            }
+
             td {
+                padding: 15px 0;
+
+                .month {
+                    font-size: 22px;
+                }
                 .day {
-                    font-size: 110px;
+                    font-size: 100px;
                 }
             }
         }
@@ -181,8 +187,13 @@
             }
 
             td {
+                padding: 12px 0;
+
+                .mont {
+                    font-size: 16px;
+                }
                 .day {
-                    font-size: 80px;
+                    font-size: 70px;
                 }
             }
         }
@@ -191,35 +202,58 @@
 
 @media (max-width: 395px) {
     .date {
-        img {
-            
-        }
-
         .table {
             th {
                 font-size: 12px;
             }
 
             td {
-                
+                padding: 10px 0;
+                .month {
+                    font-size: 14px;
+                }
             }
         }
     }
 }
 
-@media (max-width: 330px) {
+@media (max-width: 340px) {
     .date {
-        img {
-            
-        }
-
         .table {
             th {
                 font-size: 10px;
+                padding: 8px 0;
             }
 
             td {
-                
+                padding: 8px 0;
+                .month {
+                    font-size: 12px;
+                }
+                .day {
+                    font-size: 60px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 290px) {
+    .date {
+        .table {
+            th {
+                font-size: 8px;
+                padding: 6px 0;
+            }
+
+            td {
+                padding: 6px 0;
+                .month {
+                    font-size: 10px;
+                }
+                .day {
+                    font-size: 50px;
+                }
             }
         }
     }

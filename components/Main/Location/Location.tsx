@@ -10,36 +10,64 @@ const Location = () => {
     const descRef = useRef<HTMLParagraphElement>(null);
     const btnRef = useRef<HTMLAnchorElement>(null);
 
-    useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger);
+useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
 
-        const ctx = gsap.context(() => {
-            const tl = gsap.timeline({
+    const ctx = gsap.context(() => {
+        // 1. Анимация только для заголовка
+        gsap.fromTo(titleRef.current, 
+            { opacity: 0, y: 30 }, 
+            { 
+                opacity: 1, 
+                y: 0, 
+                duration: 0.8, 
+                ease: "power3.out",
                 scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top 100%", 
+                    trigger: titleRef.current, // Триггер именно на заголовке
+                    start: "top 85%", // Появится, когда будет внизу экрана
                     toggleActions: "play none none reverse",
                 }
-            });
+            }
+        );
 
-            tl.fromTo(titleRef.current, 
-                { opacity: 0, y: 30 }, 
-                { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }
-            )
-            .fromTo(descRef.current ? Array.from(descRef.current.children) : [], 
+        // 2. Анимация для строк адреса (используем stagger внутри одного триггера)
+        if (descRef.current) {
+            gsap.fromTo(Array.from(descRef.current.children), 
                 { opacity: 0, y: 20 }, 
-                { opacity: 1, y: 0, duration: 0.6, stagger: 0.2, ease: "power3.out" },
-                "-=0.4"
-            )
-            .fromTo(btnRef.current, 
-                { opacity: 0, scale: 0.8 }, 
-                { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" },
-                "-=0.2"
+                { 
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 0.6, 
+                    stagger: 0.2, 
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: descRef.current, // Триггер на блоке с текстом
+                        start: "top 85%",
+                        toggleActions: "play none none reverse",
+                    }
+                }
             );
-        }, sectionRef);
+        }
 
-        return () => ctx.revert();
-    }, []);
+        // 3. Анимация для кнопки
+        gsap.fromTo(btnRef.current, 
+            { opacity: 0, scale: 0.8 }, 
+            { 
+                opacity: 1, 
+                scale: 1, 
+                duration: 0.5, 
+                ease: "back.out(1.7)",
+                scrollTrigger: {
+                    trigger: btnRef.current, // Триггер именно на кнопке
+                    start: "top 90%", // Кнопка сработает чуть позже, когда до нее доскроллят
+                    toggleActions: "play none none reverse",
+                }
+            }
+        );
+    }, sectionRef);
+
+    return () => ctx.revert();
+}, []);
     
     return (
         <div ref={sectionRef} className={styles.location}>
