@@ -1,0 +1,237 @@
+@use "@/assets/styles/variables" as *;
+
+.top {
+    position: relative;
+
+    .title {
+        font-family: 'Seasons', Arial, sans-serif;
+        letter-spacing: 1.4;
+        text-align: center;
+        border-bottom: 2px solid #496549;
+        padding: 32px 0 14px 0;
+        font-size: 60px;
+    }
+    .content {
+        position: relative;
+
+        > img {
+            position: absolute;
+            height: auto;
+            opacity: 0.5;
+        }
+        .hat {
+            transform: rotate(20deg);
+            width: 25%;
+            opacity: 0.3;
+        }
+        .present {
+            top: 60px;
+            right: 0;
+            width: 35%;
+        }
+        .board {
+            bottom: 0;
+            right: 0;
+            width: 15%;
+        }
+
+        .center {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-top: 305px;
+            // column-gap: 126px;
+
+            .date {
+                position: absolute;
+                left: 142px;
+                display: flex;
+                flex-direction: column;
+                font-size: 80px;
+                font-family: var(--font-montserrat), Arial, sans-serif;
+                font-weight: 700;
+            }
+            .cake {
+                display: flex;
+                justify-content: center;
+                position: relative;
+                
+                .flame {
+                    position: absolute;
+                    // Настрой эти значения, чтобы попасть точно на фитиль свечи:
+                    top: 15%; 
+                    left: 50%;
+                    transform: translateX(-50%);
+                    
+                    width: 15px;
+                    height: 25px;
+                    background: radial-gradient(ellipse at bottom, #fff 0%, #ffeb3b 20%, #ff9800 50%, #f44336 100%);
+                    border-radius: 50% 50% 20% 20%;
+                    filter: blur(0.5px);
+                    box-shadow: 0 0 15px rgba(255, 165, 0, 0.6);
+                    animation: flicker 0.1s ease-in-out infinite alternate;
+                    z-index: 2;
+
+                    &::after { // Синее основание огонька для реализма
+                        content: "";
+                        position: absolute;
+                        bottom: 0;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 6px;
+                        height: 6px;
+                        background: rgba(0, 150, 255, 0.5);
+                        border-radius: 50%;
+                        filter: blur(1px);
+                    }
+                }
+
+                img {
+                    width: 70%;
+                    height: auto;
+                }
+            }
+            .time {
+                position: absolute;
+                right: 50px;
+                bottom: 80px;
+                font-size: 70px;
+                font-family: var(--font-montserrat), Arial, sans-serif;
+                font-weight: 700;
+            }
+        }
+        .description {
+            margin: 142px 0 0 159px;
+            font-size: 40px;
+            font-family: 'Seasons', Arial, sans-serif;
+            letter-spacing: 1.4;
+            width: 550px;
+            line-height: 68px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .top {
+        .title {
+            font-size: 45px;
+            padding: 20px 0;
+        }
+
+        .content {
+            .center {
+                padding-top: 200px;
+
+                .date {
+                    left: 50px;
+                    font-size: 70px;
+                }
+                .cake img {
+                    width: 80%;
+                }
+                .time {
+                    right: 50px;
+                    font-size: 60px;
+                }
+            }
+
+            .description {
+                margin: 80px auto 0;
+                font-size: 30px;
+                width: 90%;
+                text-align: center;
+                line-height: 48px;
+            }
+        }
+    }
+}
+
+@media (max-width: 548px) {
+    .top {
+        .title {
+            font-size: 35px;
+        }
+
+        .content {
+            .center {
+                padding-top: 150px;
+                .date {
+                    font-size: 60px;
+                }
+                .time {
+                    right: 50px;
+                    font-size: 50px;
+                }
+            }
+
+            .description {
+                font-size: 25px;
+                line-height: 38px;
+                margin: 60px auto 0;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .top {
+        .title {
+            font-size: 25px;
+        }
+
+        .content {
+            .center {
+                padding-top: 120px;
+                .date {
+                    left: 10px;
+                    font-size: 50px;
+                }
+                .time {
+                    right: 10px;
+                    font-size: 40px;
+                }
+                .cake img {
+                    width: 90%;
+                }
+            }
+
+            .description {
+                font-size: 20px;
+                line-height: 28px;
+            }
+        }
+    }
+}
+
+@media (max-width: 380px) {
+    .top {
+        .title {
+            font-size: 20px;
+        }
+
+        .content {
+            .center {
+                padding-top: 90px;
+                .date {
+                    left: 10px;
+                    font-size: 40px;
+                }
+                .time {
+                    right: 10px;
+                    bottom: 60px;
+                    font-size: 30px;
+                }
+                .cake img {
+                    width: 90%;
+                }
+            }
+
+            .description {
+                font-size: 16px;
+                line-height: 22px;
+                margin: 40px auto 0;
+            }
+        }
+    }
+}

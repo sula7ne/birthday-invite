@@ -1,0 +1,94 @@
+@use "@/assets/styles/variables" as *;
+
+.intro {
+    background-color: $intro-background;
+
+    width: 100%;
+    height: 100dvh;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 10000;
+    
+
+    .letter-wrapper {
+        position: relative;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .letter-top,
+        .letter-bottom {
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .letter-top {
+            z-index: 10;
+
+            .title {
+                position: absolute;
+                bottom: 30%;
+                left: 50%;
+                transform: translate(-50%, 20%);
+                font-size: 45px;
+                font-family: 'Caligraphic', Arial, sans-serif;
+                font-weight: 200;
+                text-align: center;
+                width: 300px;
+                color: white;
+            }
+        }
+
+        .letter-bottom {
+            margin-top: -10%;
+        }
+
+        .letter-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .btn {
+                width: 283px;
+                height: auto;
+            }
+        }
+    }
+
+    &.opening {
+        background-color: transparent;
+        transition: background-color 0.5s;
+
+        .letter-btn {
+            display: none;
+        }
+
+        .letter-wrapper {
+            .letter-top {
+                transform: translateY(-200%);
+                opacity: 0;
+                transition: transform 5s ease-in-out, opacity 2s ease-in-out 1s;
+            }
+
+            .letter-bottom {
+                transform: translateY(200%);
+                opacity: 0;
+                transition: transform 5s ease-in-out, opacity 2s ease-in-out 1s;
+            }
+        }
+    }
+}

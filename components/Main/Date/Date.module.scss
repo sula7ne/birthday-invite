@@ -1,0 +1,230 @@
+@use "@/assets/styles/variables" as *;
+
+.date {
+    // padding: 0 20px;
+    // margin-top: 600px;
+    position: relative;
+
+    img {
+        width: 36%;
+        height: auto;
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: rotate(15deg) translate(-66%, -45%);
+        // top: 0;
+        // left: 50%;
+        // transform: rotate(15deg) translateX(-50%);
+    }
+
+    .table {
+        table-layout: fixed;
+        width: 100%;
+        border: 2px solid $table-border-color;
+        border-collapse: collapse;
+        margin: 0 auto;
+        position: relative;
+
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+            border-right: 2px solid $table-border-color;
+            color: $text-color;
+            font-family: var(--font-montserrat), Arial, sans-serif;
+            font-weight: 300;
+
+            &:last-child {
+                border-right: none;
+            }
+        }
+        th {
+            font-size: 35px;
+            text-transform: uppercase;
+            padding: 20px 0;
+        }
+        td {
+            padding: 40px 0;
+
+            .month {
+                font-size: 35px;
+                margin-bottom: 10px;
+            }
+            .day {
+                font-size: 150px;
+                // font-size: 3.3vw;
+                font-weight: 500;
+            }
+        }
+
+        thead {
+            position: relative;
+
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 5%;
+                width: 90%;
+                height: 2px;
+                background: $table-border-color;
+            }
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .date {
+        img {
+            width: 40%;
+        }
+    }
+}
+
+@media (max-width: 975px) {
+    .date {
+        .table {
+            th {
+                font-size: 30px;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .date {
+        img {
+            width: 38%;
+        }
+
+        .table {
+            th {
+                font-size: 25px;
+                padding: 12px 0;
+            }
+
+            td {
+                padding: 20px 0;
+
+                .month {
+                    font-size: 30px;
+                }
+
+                .day {
+                    font-size: 130px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 675px) {
+    .date {
+        img {
+            width: 40%;
+        }
+
+        .table {
+            th {
+                font-size: 20px;
+            }
+
+            td {
+                .month {
+                    font-size: 25px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 675px) {
+    .date {
+        img {
+            width: 42%;
+        }
+
+        .table {
+            td {
+                .day {
+                    font-size: 110px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 545px) {
+    .date {
+        img {
+            width: 45%;
+        }
+
+        .table {
+            th {
+                font-size: 16px;
+            }
+
+            td {
+                .month {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .date {
+        img {
+            width: 50%;
+        }
+
+        .table {
+            th {
+                font-size: 14px;
+            }
+
+            td {
+                .day {
+                    font-size: 80px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 395px) {
+    .date {
+        img {
+            
+        }
+
+        .table {
+            th {
+                font-size: 12px;
+            }
+
+            td {
+                
+            }
+        }
+    }
+}
+
+@media (max-width: 330px) {
+    .date {
+        img {
+            
+        }
+
+        .table {
+            th {
+                font-size: 10px;
+            }
+
+            td {
+                
+            }
+        }
+    }
+}

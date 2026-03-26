@@ -1,0 +1,58 @@
+@use "@/assets/styles/variables" as *;
+
+.bottom {
+    position: relative;
+    
+    img {
+        height: auto;
+    }
+
+    .rope {
+        opacity: 0.2;
+        width: 100%;
+        position: relative;
+        top: -100px;
+    }
+    .balloons {
+        opacity: 0.2;
+        width: 50%;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .bottom {
+        
+        .rope {
+            top: -80px;
+        }
+    }
+}
+
+@media (max-width: 570px) {
+    .bottom {
+        .rope {
+            top: -60px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .bottom {
+        .rope {
+            top: -40px;
+        }
+
+    }
+}
+
+@media (max-width: 380px) {
+    .bottom {
+        
+        .rope {
+            top: -30px;
+        }
+    }
+}

@@ -1,0 +1,128 @@
+@use "@/assets/styles/variables" as *;
+
+.center {
+    width: 100%;
+    margin-top: 90px;
+    padding: 0 20px;
+
+    .rope {
+        width: 100%;
+        height: auto;
+        opacity: 0.5;
+        margin-bottom: 140px;
+    }
+
+    .years {
+        position: relative;
+        margin: 200px 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    
+        img {
+            width: 300px;
+            height: auto;
+        }
+        span {
+            position: absolute;
+            left: 55%;
+            // top: 50%;
+            // transform: translate(-30%, -50%);
+            bottom: 0;
+            font-size: 90px;
+            font-family: 'Seasons', Arial, sans-serif;
+            white-space: nowrap;
+        }
+    }
+
+    .decorative {
+        width: 550px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        margin-top: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .center {
+        margin-top: 60px;
+
+        .rope {
+            margin-bottom: 80px;
+        }
+
+        .years {
+            margin: 120px 0;
+
+            img {
+                width: 220px;
+            }
+
+            span {
+                font-size: 60px;
+                left: 50%;
+            }
+        }
+
+        .decorative {
+            width: 400px;
+            margin-top: 30px;
+        }
+    }
+}
+
+@media (max-width: 570px) {
+    .center {
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .center {
+        padding: 0 10px;
+        margin-top: 40px;
+
+        .rope {
+            margin-bottom: 40px;
+        }
+
+        .years {
+            margin: 80px 0;
+
+            img {
+                width: 160px;
+            }
+
+            span {
+                font-size: 36px;
+            }
+        }
+
+        .decorative {
+            width: 250px;
+            margin-top: 20px;
+        }
+    }
+}
+
+@media (max-width: 380px) {
+    .center {
+        .years {
+            margin: 40px 0;
+
+            img {
+                width: 120px;
+            }
+
+            span {
+                font-size: 30px;
+            }
+        }
+
+        .decorative {
+            width: 150px;
+            margin-top: 10px;
+        }
+    }
+}

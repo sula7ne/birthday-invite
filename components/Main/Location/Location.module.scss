@@ -1,0 +1,121 @@
+@use "@/assets/styles/variables" as *;
+
+.location {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+    text-align: center; 
+    color: $text-color;
+    margin-top: 140px;
+
+    .title {
+        font-size: 180px;
+        font-family: 'Caligraphic', Arial, sans-serif;
+        font-weight: 500;
+    }
+    .description {
+        font-size: 40px;
+        font-family: var(--font-montserrat), Arial, sans-serif;
+        font-weight: 300;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 10px;
+    }
+    .route {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        background-color: $text-color;
+        width: 400px;
+        height: 100px;
+        // padding: 35px 45px;
+        border-radius: 50px;
+        font-size: 30px;
+        font-weight: 300;
+        font-family: var(--font-montserrat), Arial, sans-serif;
+        transition: 0.3s ease all;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgb(66, 79, 91);
+        }
+        &:active {
+            background-color: $text-color;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .location {
+        
+        .title {
+            font-size: 130px;
+        }
+        .description {
+            font-size: 30px;
+        }
+        .route {
+            font-size: 25px;
+            width: 320px;
+            height: 80px;
+        }
+    }
+}
+
+@media (max-width: 570px) {
+    .location {
+        padding: 0 15px;
+
+        .title {
+            font-size: 110px;
+        }
+        .description {
+            font-size: 25px;
+        }
+        .route {
+            font-size: 20px;
+            width: 240px;
+            height: 60px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .location {
+        padding: 0 10px;
+
+        .title {
+            font-size: 90px;
+        }
+        .description {
+            font-size: 20px;
+        }
+        .route {
+            font-size: 16px;
+            width: 200px;
+            height: 50px;
+        }
+    }
+}
+
+@media (max-width: 380px) {
+    .location {
+        
+        .title {
+            font-size: 70px;
+        }
+        .description {
+            font-size: 16px;
+        }
+        .route {
+            font-size: 12px;
+            width: 160px;
+            height: 40px;
+        }
+    }
+}
