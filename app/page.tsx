@@ -16,14 +16,16 @@ const Home = () => {
 
     useEffect(() => {
         const handleVisibilityChange = () => {
-            if (document.hidden) {
-                audioRef.current?.pause();
-            } else { 
-				if (audioRef.current && audioRef.current.paused && !isIntro) {
-					return;
-				}
+			const audio = audioRef.current;
+			
+            if(audio) {
+				if (document.hidden) {
+					audioRef.current?.pause();
+				} else { 
+					audio.currentTime = audio.currentTime;
 
-				audioRef.current?.play();
+					audioRef.current?.play();
+				}
 			}
         };
 
