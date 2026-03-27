@@ -1,7 +1,6 @@
 "use client"
 
 import { GuestForm, guestForm } from "@/schemas/guest.schema";
-import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { useEffect, useRef, useState } from "react";
 
 import PopUp from "../PopUp/PopUp";
@@ -9,11 +8,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { addGuest } from "@/state/slices/guestsSlice";
 import gsap from "gsap";
 import styles from "@/components/Form/Form.module.scss";
+import { useAppDispatch } from "@/state/hooks";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const Form = () => {
-    const { isLoading } = useAppSelector(state => state.guests);
     const dispatch = useAppDispatch();
     const [success, setSuccess] = useState(false);
     const [isPopUp, setIsPopUp] = useState(true);
@@ -22,6 +21,7 @@ const Form = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
     const btnRef = useRef<HTMLButtonElement>(null);
+    const formRef = useRef<HTMLFormElement>(null);
 
     const {
         register,
@@ -50,11 +50,23 @@ const Form = () => {
             });
 
             tl.fromTo(titleRef.current, 
-                { opacity: 0, y: 30 }, 
-                { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }
+                { opacity: 0, y: 20 }, 
+                { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }
             )
+            .fromTo(`.${styles['form-el']}`, 
+                { opacity: 0, y: 20 }, 
+                { 
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 0.5, 
+                    stagger: 0.15,
+                    ease: "power2.out" 
+                },
+                "-=0.3"
+            )
+            
             .fromTo(btnRef.current, 
-                { opacity: 0, scale: 0.8 }, 
+                { opacity: 0, scale: 0.9 }, 
                 { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" },
                 "-=0.2"
             );
@@ -74,9 +86,7 @@ const Form = () => {
 
             dispatch(addGuest(formattedData))
                 .unwrap()
-                .catch((e) => {
-                    setSuccess(false);
-                });
+                .catch(() => setSuccess(false));
         } catch(e) { console.log(e); }
     };
 
@@ -84,7 +94,7 @@ const Form = () => {
         <div ref={sectionRef} className={styles.form}>
             <h2 ref={titleRef} className={styles.title}>Анкета</h2>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
                 <div className={styles['form-el']}>
                     <label htmlFor="name">Имя</label>
                     <input id="name" type="text" placeholder="Ирина Кайратовна" {...register("name")} />
@@ -115,7 +125,6 @@ const Form = () => {
                     type="submit" 
                     disabled={isSubmitting}
                 >
-                    {/* {isLoading ? 'Загрузка...' : 'Отправить'} */}
                     Отправить
                 </button>
 

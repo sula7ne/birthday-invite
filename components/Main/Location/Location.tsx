@@ -14,7 +14,6 @@ useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-        // 1. Анимация только для заголовка
         gsap.fromTo(titleRef.current, 
             { opacity: 0, y: 30 }, 
             { 
@@ -23,14 +22,13 @@ useEffect(() => {
                 duration: 0.8, 
                 ease: "power3.out",
                 scrollTrigger: {
-                    trigger: titleRef.current, // Триггер именно на заголовке
-                    start: "top 85%", // Появится, когда будет внизу экрана
+                    trigger: titleRef.current,
+                    start: "top 85%",
                     toggleActions: "play none none reverse",
                 }
             }
         );
 
-        // 2. Анимация для строк адреса (используем stagger внутри одного триггера)
         if (descRef.current) {
             gsap.fromTo(Array.from(descRef.current.children), 
                 { opacity: 0, y: 20 }, 
@@ -41,7 +39,7 @@ useEffect(() => {
                     stagger: 0.2, 
                     ease: "power3.out",
                     scrollTrigger: {
-                        trigger: descRef.current, // Триггер на блоке с текстом
+                        trigger: descRef.current,
                         start: "top 85%",
                         toggleActions: "play none none reverse",
                     }
@@ -49,7 +47,6 @@ useEffect(() => {
             );
         }
 
-        // 3. Анимация для кнопки
         gsap.fromTo(btnRef.current, 
             { opacity: 0, scale: 0.8 }, 
             { 
@@ -58,8 +55,8 @@ useEffect(() => {
                 duration: 0.5, 
                 ease: "back.out(1.7)",
                 scrollTrigger: {
-                    trigger: btnRef.current, // Триггер именно на кнопке
-                    start: "top 90%", // Кнопка сработает чуть позже, когда до нее доскроллят
+                    trigger: btnRef.current,
+                    start: "top 90%",
                     toggleActions: "play none none reverse",
                 }
             }
