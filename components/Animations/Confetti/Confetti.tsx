@@ -1,10 +1,11 @@
 "use client";
 
+import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { useEffect, useRef } from "react";
 
 import confetti from "canvas-confetti";
+import { setIsBeated } from "@/state/slices/appSlice";
 import styles from "@/components/Animations/Confetti/Confetti.module.scss";
-import { useAppSelector } from "@/state/hooks";
 
 interface ConfettiProps {
     audioRef: React.RefObject<HTMLAudioElement | null>;
@@ -12,6 +13,7 @@ interface ConfettiProps {
 
 const Confetti = ({ audioRef }: ConfettiProps) => {
     const { isIntroOpening } = useAppSelector(state => state.app);
+    const dispatch = useAppDispatch();
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
     useEffect(() => {
@@ -26,7 +28,6 @@ const Confetti = ({ audioRef }: ConfettiProps) => {
             myConfetti = confetti.create(canvasRef.current, { resize: true, useWorker: true });
             const colors = ["#fce18a", "#ff726d", "#b48def", "#f4306d", "#42a5f5", "#66bb6a", "#ffa726"];
 
-            // Безопасная инициализация AudioContext
             const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
             audioCtx = new AudioContextClass();
             
@@ -49,7 +50,6 @@ const Confetti = ({ audioRef }: ConfettiProps) => {
                 myConfetti!({ ...common, angle: 120, origin: { x: 1, y: 1 } });
             };
 
-            // Функция постоянного дождя
             const startRain = () => {
                 myConfetti!({
                     particleCount: 1,
@@ -68,20 +68,21 @@ const Confetti = ({ audioRef }: ConfettiProps) => {
                 animationId = requestAnimationFrame(startRain);
             };
 
-            // Цикл проверки звука
             const checkAudio = () => {
                 if (!hasFired && analyser && audioRef.current) {
                     analyser.getByteFrequencyData(dataArray);
                     const bassValue = dataArray[0];
 
                     if (bassValue > 250 && audioRef.current.currentTime > 1.2) {
-                        fireHugeExplosion(); // 1. Делаем взрыв
+                        fireHugeExplosion();
                         hasFired = true;
-                        startRain(); // 2. ЗАПУСКАЕМ дождь только здесь
-                        return; // Выходим из цикла проверки звука
+
+                        dispatch(setIsBeated(true));
+                        startRain();
+                        
+                        return;
                     }
                 }
-                // Пока не бахнуло, продолжаем слушать
                 if (!hasFired) {
                     animationId = requestAnimationFrame(checkAudio);
                 }
@@ -98,7 +99,9 @@ const Confetti = ({ audioRef }: ConfettiProps) => {
         }
     }, [isIntroOpening, audioRef]);
 
-    return <canvas ref={canvasRef} className={styles.canvasContainer} />;
+    return (
+        <canvas ref={canvasRef} className={styles.canvasContainer} />
+    );
 };
 
 export default Confetti;

@@ -18,7 +18,9 @@ const Home = () => {
         const handleVisibilityChange = () => {
             if (document.hidden) {
                 audioRef.current?.pause();
-            }
+            } else { 
+				audioRef.current?.play();
+			}
         };
 
         document.addEventListener("visibilitychange", handleVisibilityChange);

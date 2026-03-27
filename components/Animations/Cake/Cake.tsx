@@ -7,7 +7,7 @@ import styles from "@/components/Animations/Cake/Cake.module.scss";
 import { useAppSelector } from "@/state/hooks";
 
 const Cake = () => {
-    const { isIntroOpening } = useAppSelector(state => state.app);
+    const { isBeated } = useAppSelector(state => state.app);
     const svgRef = useRef<SVGSVGElement>(null);
 
     const candles = [
@@ -16,44 +16,36 @@ const Cake = () => {
     ];
 
     useEffect(() => {
-        let startTimeout: NodeJS.Timeout;
-        let ctx: gsap.Context;
+        const ctx = gsap.context(() => {
+            // Устанавливаем начальное состояние СРАЗУ, независимо от бита
+            gsap.set(`.${styles.flameContainer}`, { 
+                scale: 0, 
+                opacity: 0, 
+                transformOrigin: "bottom center" 
+            });
 
-        if (isIntroOpening) {
-            ctx = gsap.context(() => {
-                gsap.set(`.${styles.flameContainer}`, { 
-                    scale: 0, 
-                    opacity: 0, 
-                    transformOrigin: "bottom center" 
+            // Запускаем анимацию только если бит случился
+            if (isBeated) {
+                gsap.to(`.${styles.flameContainer}`, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.4,
+                    stagger: 0.1,
+                    ease: "back.out(2)",
+                    onStart: () => {
+                        gsap.to(`.${styles.cakeImage}`, { 
+                            x: 2, 
+                            duration: 0.05, 
+                            repeat: 5, 
+                            yoyo: true 
+                        });
+                    }
                 });
+            }
+        }, svgRef);
 
-                const startIgnition = () => {
-                    gsap.to(`.${styles.flameContainer}`, {
-                        opacity: 1,
-                        scale: 1,
-                        duration: 0.4,
-                        stagger: 0.1,
-                        ease: "back.out(2)",
-                        onStart: () => {
-                            gsap.to(`.${styles.cakeImage}`, { 
-                                x: 1, 
-                                duration: 0.05, 
-                                repeat: 5, 
-                                yoyo: true 
-                            });
-                        }
-                    });
-                };
-
-                startTimeout = setTimeout(startIgnition, 1700);
-            }, svgRef);
-
-            return () => {
-                clearTimeout(startTimeout);
-                if (ctx) ctx.revert();
-            };
-        }
-    }, [isIntroOpening]);
+    return () => ctx && ctx.revert();
+}, [isBeated]);
     
     return (
         <div className={styles.cake}>

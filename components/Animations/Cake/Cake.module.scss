@@ -73,6 +73,18 @@
     }
 }
 
+@media (prefers-color-scheme: dark) {
+    .flameLayer1 {
+        fill: #ff2200; // Делаем более "кроваво-красным", чтобы пробить желтизну
+    }
+    .flameLayer2 {
+        fill: #ff4500;
+    }
+    .individualGlow {
+        stop-color: #ff0000; // Свечение уводим в красный
+    }
+}
+
 @media (max-width: 768px) {
     .cake {
         img {
