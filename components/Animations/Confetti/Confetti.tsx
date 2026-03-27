@@ -97,7 +97,7 @@ const Confetti = ({ audioRef }: ConfettiProps) => {
                 if (audioCtx) audioCtx.close();
             };
         }
-    }, [isIntroOpening, audioRef]);
+    }, [isIntroOpening, audioRef, dispatch]);
 
     return (
         <canvas ref={canvasRef} className={styles.canvasContainer} />
