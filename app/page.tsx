@@ -41,51 +41,15 @@ const Home = () => {
 		init();
 	}, []);
 
-useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    const resumeAudio = () => {
-        if (audio.paused && audio.currentTime > 0) {
-            audio.muted = false;
-            audio.play().catch(() => {
-                // Если заблокировано, звук включится при следующем клике
-                console.log("Возобновление звука ждет касания...");
-            });
-        }
-    };
-
-    const handleVisibilityChange = () => {
-        if (document.hidden) {
-            audio.pause(); 
-        } else {
-            // 1. Пробуем включить сразу при возврате
-            resumeAudio();
-        }
-    };
-
-    // 2. ДОПОЛНИТЕЛЬНО: Слушаем любой клик/тач после возврата на страницу
-    // Это "пробивает" блокировку браузера, если handleVisibilityChange не справился
-    const handleUserInteraction = () => {
-        if (!document.hidden) {
-            resumeAudio();
-        }
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    document.addEventListener("click", handleUserInteraction);
-    document.addEventListener("touchstart", handleUserInteraction);
-
-    return () => {
-        document.removeEventListener("visibilitychange", handleVisibilityChange);
-        document.removeEventListener("click", handleUserInteraction);
-        document.removeEventListener("touchstart", handleUserInteraction);
-        if (audio) {
-            audio.pause();
-            audio.src = "";
-        }
-    };
-}, []);
+	useEffect(() => {
+        return () => {
+            if (audioRef.current) {
+                audioRef.current.pause();
+                audioRef.current.src = ""; 
+                audioRef.current.load();
+            }
+        };
+    }, []);
 
 	return (
 		<div>
@@ -96,7 +60,7 @@ useEffect(() => {
 			{/* !isIntro */}
 			{!isLoading && <Main audioRef={audioRef} />}
 
-			<audio ref={audioRef} src={audioPath} preload="auto" playsInline webkit-playsinline="true" loop />
+			<audio ref={audioRef} src={audioPath} preload="auto" playsInline loop />
 		</div>
 	);
 }
