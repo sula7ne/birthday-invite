@@ -48,7 +48,7 @@ const Home = () => {
 			{!isLoading && isIntro && <Intro audioRef={audioRef} />}
 			
 			{/* !isIntro */}
-			{!isLoading && <Main />}
+			{!isLoading && <Main audioRef={audioRef} />}
 
 			<audio ref={audioRef} src={audioPath} preload="auto" loop />
 		</div>

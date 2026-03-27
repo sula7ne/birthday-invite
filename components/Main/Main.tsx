@@ -1,14 +1,19 @@
 import Bottom from "./Bottom/Bottom";
 import Center from "./Center/Center";
 import Confetti from "../Animations/Confetti/Confetti";
+import { RefObject } from "react";
 import Top from "./Top/Top";
 import styles from "@/components/Main/Main.module.scss"
 
-const Main = () => {
+interface MainProps {
+    audioRef: RefObject<HTMLAudioElement | null>;
+}
+
+const Main = ({ audioRef }: MainProps) => {
     return (
         <main className={styles.main}>
             <div className={styles.container}>
-                <Confetti />
+                <Confetti audioRef={audioRef} />
 
                 <Top />
                 <Center />
