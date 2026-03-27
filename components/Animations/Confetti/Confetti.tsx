@@ -20,17 +20,18 @@ const Confetti = ({ audioRef }: ConfettiProps) => {
         let audioCtx: AudioContext | null = null;
         let analyser: AnalyserNode | null = null;
         let source: MediaElementAudioSourceNode | null = null;
-        let hasFired = false; // Предохранитель, чтобы взрыв был только один раз
+        let hasFired = false; 
 
         if (isIntroOpening && canvasRef.current && audioRef.current) {
             myConfetti = confetti.create(canvasRef.current, { resize: true, useWorker: true });
             const colors = ["#fce18a", "#ff726d", "#b48def", "#f4306d", "#42a5f5", "#66bb6a", "#ffa726"];
 
-            // Настройка анализатора
-            audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+            // Безопасная инициализация AudioContext
+            const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+            audioCtx = new AudioContextClass();
+            
             analyser = audioCtx.createAnalyser();
             source = audioCtx.createMediaElementSource(audioRef.current);
-            
             source.connect(analyser);
             analyser.connect(audioCtx.destination);
 
@@ -39,31 +40,51 @@ const Confetti = ({ audioRef }: ConfettiProps) => {
 
             const fireHugeExplosion = () => {
                 const common = {
-                    particleCount: 120,
+                    particleCount: 150,
                     spread: 70,
                     startVelocity: 80,
                     colors
                 };
-                // Залп слева и справа одновременно
                 myConfetti!({ ...common, angle: 60, origin: { x: 0, y: 1 } });
                 myConfetti!({ ...common, angle: 120, origin: { x: 1, y: 1 } });
             };
 
+            // Функция постоянного дождя
+            const startRain = () => {
+                myConfetti!({
+                    particleCount: 1,
+                    startVelocity: 0, 
+                    ticks: 300,
+                    origin: {
+                        x: Math.random(),
+                        y: Math.random() - 0.2,
+                    },
+                    colors: [colors[Math.floor(Math.random() * colors.length)]],
+                    shapes: ["square"],
+                    gravity: Math.random() * 0.4 + 0.3,
+                    scalar: Math.random() * 1 + 0.7,
+                    drift: Math.random() * 2 - 1,
+                });
+                animationId = requestAnimationFrame(startRain);
+            };
+
+            // Цикл проверки звука
             const checkAudio = () => {
-                if (hasFired) return;
+                if (!hasFired && analyser && audioRef.current) {
+                    analyser.getByteFrequencyData(dataArray);
+                    const bassValue = dataArray[0];
 
-                analyser!.getByteFrequencyData(dataArray);
-                const bassValue = dataArray[0]; 
-
-                if (bassValue > 250 && audioRef.current!.currentTime > 1.2) {
-                    fireHugeExplosion();
-                    hasFired = true;
-                    
-                    cancelAnimationFrame(animationId);
-                    return;
+                    if (bassValue > 250 && audioRef.current.currentTime > 1.2) {
+                        fireHugeExplosion(); // 1. Делаем взрыв
+                        hasFired = true;
+                        startRain(); // 2. ЗАПУСКАЕМ дождь только здесь
+                        return; // Выходим из цикла проверки звука
+                    }
                 }
-
-                animationId = requestAnimationFrame(checkAudio);
+                // Пока не бахнуло, продолжаем слушать
+                if (!hasFired) {
+                    animationId = requestAnimationFrame(checkAudio);
+                }
             };
 
             checkAudio();
@@ -72,6 +93,7 @@ const Confetti = ({ audioRef }: ConfettiProps) => {
                 if (animationId) cancelAnimationFrame(animationId);
                 if (myConfetti) myConfetti.reset();
                 if (source) source.disconnect();
+                if (audioCtx) audioCtx.close();
             };
         }
     }, [isIntroOpening, audioRef]);
