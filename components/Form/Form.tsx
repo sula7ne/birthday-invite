@@ -44,7 +44,7 @@ const Form = () => {
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: sectionRef.current,
-                    start: "top 100%", 
+                    start: "top 85%", 
                     toggleActions: "play none none reverse",
                 }
             });
