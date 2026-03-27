@@ -81,7 +81,7 @@ useEffect(() => {
 			{/* !isIntro */}
 			{!isLoading && <Main audioRef={audioRef} />}
 
-			<audio ref={audioRef} src={audioPath} preload="auto" loop />
+			<audio ref={audioRef} src={audioPath} preload="auto" playsInline webkit-playsinline="true" loop />
 		</div>
 	);
 }
