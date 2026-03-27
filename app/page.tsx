@@ -41,21 +41,22 @@ const Home = () => {
 		init();
 	}, []);
 
-	useEffect(() => {
+useEffect(() => {
         const audio = audioRef.current;
+        if (!audio) return;
 
         const handleVisibilityChange = () => {
-            if (!audio) return;
-
             if (document.hidden) {
-                audio.pause();
+                // Вместо pause() мы просто выключаем звук. 
+                // Это сохраняет поток данных живым, и он не "лагает" при возврате.
+                audio.muted = true;
             } else {
-                if (audio.currentTime > 0) {
-                    audio.currentTime = Math.max(0, audio.currentTime - 0.01);
+                // Возвращаем звук мгновенно без переинициализации буфера
+                audio.muted = false;
 
-                    audio.play().catch((err) => {
-                        console.warn("Автовоспроизведение заблокировано:", err);
-                    });
+                // На всякий случай проверяем, не поставила ли система его на паузу
+                if (audio.paused && audio.currentTime > 0) {
+                    audio.play().catch(() => {});
                 }
             }
         };
@@ -64,11 +65,9 @@ const Home = () => {
 
         return () => {
             document.removeEventListener("visibilitychange", handleVisibilityChange);
-			
             if (audio) {
                 audio.pause();
                 audio.src = "";
-                audio.load();
             }
         };
     }, []);

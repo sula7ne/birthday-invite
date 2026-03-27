@@ -69,7 +69,7 @@ const Confetti = ({ audioRef }: ConfettiProps) => {
             };
 
             const checkAudio = () => {
-                if (audioRef.current?.paused) {
+                if (document.hidden) {
                     animationId = requestAnimationFrame(checkAudio);
                     return;
                 }
