@@ -1,6 +1,7 @@
 import "@/assets/styles/globals.scss";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+
 import { Montserrat } from "next/font/google";
 import { Providers } from "./providers";
 import { ScrollReset } from "@/components/ScrollReset";
@@ -14,6 +15,13 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
     title: "Sagynysh's birthday invitation",
     description: "Sagynysh's birthday invitation app",
+};
+
+export const viewport: Viewport = {
+    colorScheme: 'light dark',
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

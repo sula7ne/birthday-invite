@@ -4,7 +4,6 @@
     position: relative;
 
     img {
-        // width: 70%;
         width: 48%;
         height: auto;
     }
@@ -19,14 +18,12 @@
         z-index: 2;
         overflow: visible;
 
-        // Анимация пульсации света вокруг
         @keyframes realisticFlame {
             0% {
                 transform: scale(1) translateY(0);
                 opacity: 0.8;
             }
             50% {
-                // Эффект "исчезновения" кончика огня как в твоем примере
                 opacity: 0.6;
             }
             100% {
@@ -45,24 +42,23 @@
 
             .mainFlame {
                 transform-origin: bottom center;
-                mix-blend-mode: screen; // Слои будут подсвечивать друг друга
+                mix-blend-mode: screen;
                 filter: drop-shadow(0 0 4px rgba(255, 60, 0, 0.4));
             }
 
-            // Слой 1: Основание (медленное, желтое)
             .flameLayer1 {
-                fill: rgba(255, 80, 0, 0.85); // насыщенный оранжевый
+                fill: rgba(255, 40, 0, 0.9);
                 animation: realisticFlame 1.2s infinite ease-in-out alternate;
             }
 
             .flameLayer2 {
-                fill: rgba(255, 120, 0, 0.6); // красно-оранжевый
+                fill: rgba(255, 120, 0, 0.6);
                 animation: realisticFlame 0.7s infinite ease-in-out alternate-reverse;
                 animation-delay: 0.2s;
             }
 
             .flameLayer3 {
-                fill: rgba(255, 200, 150, 0.4); // тёплый свет вместо белого
+                fill: rgba(255, 200, 150, 0.4);
                 filter: blur(2px);
                 animation: realisticFlame 0.4s infinite ease-in-out;
             }
