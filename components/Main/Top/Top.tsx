@@ -38,6 +38,7 @@ const Top = () => {
             <Image className={styles.hat} src={hatImg} alt="hat" />
             <Image className={styles.present} src={presentImg} alt="present" />
             <Image className={styles.board} src={boardImg} alt="board" />
+            
             <div className={styles.wrapper}>
                 <div className={styles.title}>
                     <h1 >Sagynysh ’s b ’day party</h1>

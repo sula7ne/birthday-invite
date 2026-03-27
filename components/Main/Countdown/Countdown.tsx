@@ -55,7 +55,7 @@ const Countdown = () => {
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: containerRef.current,
-                            start: "top 95%",
+                            start: "top 90%",
                             toggleActions: "play none none reverse",
                         }
                     }
