@@ -17,14 +17,12 @@ const Cake = () => {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Устанавливаем начальное состояние СРАЗУ, независимо от бита
             gsap.set(`.${styles.flameContainer}`, { 
                 scale: 0, 
                 opacity: 0, 
                 transformOrigin: "bottom center" 
             });
 
-            // Запускаем анимацию только если бит случился
             if (isBeated) {
                 gsap.to(`.${styles.flameContainer}`, {
                     opacity: 1,

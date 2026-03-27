@@ -69,6 +69,11 @@ const Confetti = ({ audioRef }: ConfettiProps) => {
             };
 
             const checkAudio = () => {
+                if (audioRef.current?.paused) {
+                    animationId = requestAnimationFrame(checkAudio);
+                    return;
+                }
+
                 if (!hasFired && analyser && audioRef.current) {
                     analyser.getByteFrequencyData(dataArray);
                     const bassValue = dataArray[0];

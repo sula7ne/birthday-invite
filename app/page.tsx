@@ -18,37 +18,44 @@ const Home = () => {
         const audio = audioRef.current;
 
         const handleVisibilityChange = () => {
-            if (!audio) return;
+			if (!audio) return;
 
-            if (document.hidden) {
-                // ПЛАВНЫЙ ВЫХОД: Снижаем громкость и только потом на паузу
-                gsap.to(audio, {
-                    volume: 0,
-                    duration: 0.8,
-                    onComplete: () => {
-                        audio.pause();
-                    }
-                });
-            } else {
-                // ПЛАВНЫЙ ВХОД: Убираем "баги" синхронизации
-                // Проверяем, было ли аудио вообще запущено (currentTime > 0)
-                if (audio.currentTime > 0) {
-                    // Маленький хак для очистки буфера
-                    audio.currentTime = audio.currentTime; 
-                    
-                    audio.play().then(() => {
-                        gsap.to(audio, {
-                            volume: 1, // Возвращаем к полной громкости
-                            duration: 1,
-                            ease: "power1.inOut"
-                        });
-                    }).catch(() => {
-                        // Если автоплей заблокирован, просто ждем клика
-                        console.log("Audio resume blocked by browser");
-                    });
-                }
-            }
-        };
+			// Убиваем все текущие анимации громкости, чтобы они не конфликтовали
+			gsap.killTweensOf(audio);
+
+			if (document.hidden) {
+				// Плавное затухание перед паузой
+				gsap.to(audio, {
+					volume: 0,
+					duration: 0.5,
+					onComplete: () => {
+						audio.pause();
+					}
+				});
+			} else {
+				// Проверяем, начат ли уже трек (чтобы не включать музыку до старта интро)
+				// Если аудио было на паузе и время больше 0
+				if (audio.currentTime > 0) {
+					
+					// 1. ПРИНУДИТЕЛЬНЫЙ СБРОС:
+					// Это лечит "ускорение", так как заставляет браузер пересоздать буфер
+					const savedTime = audio.currentTime;
+					audio.pause(); 
+					audio.currentTime = savedTime; 
+
+					// 2. ЗАПУСК ПОСЛЕ МИКРО-ПАУЗЫ:
+					// Даем браузеру 50мс, чтобы "продышаться"
+					setTimeout(() => {
+						audio.play().then(() => {
+							gsap.fromTo(audio, 
+								{ volume: 0 }, 
+								{ volume: 1, duration: 1.2, ease: "power2.inOut" }
+							);
+						}).catch(err => console.log("Playback failed:", err));
+					}, 50);
+				}
+			}
+		};
 
         document.addEventListener("visibilitychange", handleVisibilityChange);
 
