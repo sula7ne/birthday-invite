@@ -48,16 +48,10 @@ const Home = () => {
             if (!audio) return;
 
             if (document.hidden) {
-                // Выключаем звук сразу при сворачивании
                 audio.pause();
             } else {
-                // Когда пользователь вернулся (на телефоне или в браузере)
                 if (audio.currentTime > 0) {
-                    /* КРИТИЧЕСКИЙ МОМЕНТ:
-                      Перезаписываем время самим собой. Это заставляет браузер 
-                      сбросить старый "лагающий" буфер и начать играть чисто.
-                    */
-                    audio.currentTime = audio.currentTime;
+                    audio.currentTime = Math.max(0, audio.currentTime - 0.01);
 
                     audio.play().catch((err) => {
                         console.warn("Автовоспроизведение заблокировано:", err);
@@ -70,6 +64,7 @@ const Home = () => {
 
         return () => {
             document.removeEventListener("visibilitychange", handleVisibilityChange);
+			
             if (audio) {
                 audio.pause();
                 audio.src = "";
