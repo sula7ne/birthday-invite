@@ -11,8 +11,8 @@ const Cake = () => {
     const svgRef = useRef<SVGSVGElement>(null);
 
     const candles = [
-        { x: 115, y: 80 }, { x: 140, y: 55 }, { x: 163, y: 68 }, { x: 200, y: 75 },
-        { x: 238, y: 50 }, { x: 285, y: 98 }, { x: 328, y: 70 }, { x: 355, y: 70 }
+        { x: 115, y: 80 }, { x: 139, y: 58 }, { x: 163, y: 68 }, { x: 200, y: 75 },
+        { x: 238, y: 50 }, { x: 285, y: 98 }, { x: 328, y: 70 }, { x: 355, y: 75 }
     ];
 
     useEffect(() => {
@@ -60,7 +60,7 @@ const Cake = () => {
                     <path id="flame-shape" d="M0,0 C-10,-5 -12,-15 0,-50 C22,-15 10,-5 0,0 Z" />
                     
                     <radialGradient id="individualGlow">
-                        <stop offset="0%" stopColor="#fbc112" stopOpacity="0.65" />
+                        <stop offset="0%" stopColor="#ffbb00" stopOpacity="0.65" />
                         <stop offset="100%" stopColor="#fec20e" stopOpacity="0" />
                     </radialGradient>
                 </defs>
