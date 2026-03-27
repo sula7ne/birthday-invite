@@ -42,35 +42,50 @@ const Home = () => {
 	}, []);
 
 useEffect(() => {
-        const audio = audioRef.current;
-        if (!audio) return;
+    const audio = audioRef.current;
+    if (!audio) return;
 
-        const handleVisibilityChange = () => {
-            if (document.hidden) {
-                // Вместо pause() мы просто выключаем звук. 
-                // Это сохраняет поток данных живым, и он не "лагает" при возврате.
-                audio.muted = true;
-            } else {
-                // Возвращаем звук мгновенно без переинициализации буфера
-                audio.muted = false;
+    const resumeAudio = () => {
+        if (audio.paused && audio.currentTime > 0) {
+            audio.muted = false;
+            audio.play().catch(() => {
+                // Если заблокировано, звук включится при следующем клике
+                console.log("Возобновление звука ждет касания...");
+            });
+        }
+    };
 
-                // На всякий случай проверяем, не поставила ли система его на паузу
-                if (audio.paused && audio.currentTime > 0) {
-                    audio.play().catch(() => {});
-                }
-            }
-        };
+    const handleVisibilityChange = () => {
+        if (document.hidden) {
+            audio.pause(); 
+        } else {
+            // 1. Пробуем включить сразу при возврате
+            resumeAudio();
+        }
+    };
 
-        document.addEventListener("visibilitychange", handleVisibilityChange);
+    // 2. ДОПОЛНИТЕЛЬНО: Слушаем любой клик/тач после возврата на страницу
+    // Это "пробивает" блокировку браузера, если handleVisibilityChange не справился
+    const handleUserInteraction = () => {
+        if (!document.hidden) {
+            resumeAudio();
+        }
+    };
 
-        return () => {
-            document.removeEventListener("visibilitychange", handleVisibilityChange);
-            if (audio) {
-                audio.pause();
-                audio.src = "";
-            }
-        };
-    }, []);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    document.addEventListener("click", handleUserInteraction);
+    document.addEventListener("touchstart", handleUserInteraction);
+
+    return () => {
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+        document.removeEventListener("click", handleUserInteraction);
+        document.removeEventListener("touchstart", handleUserInteraction);
+        if (audio) {
+            audio.pause();
+            audio.src = "";
+        }
+    };
+}, []);
 
 	return (
 		<div>
