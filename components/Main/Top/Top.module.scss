@@ -75,17 +75,6 @@
                         font-weight: 700;
                     }
                 }
-                .cake {
-                    display: flex;
-                    justify-content: center;
-                    position: relative;
-
-                    img {
-                        // width: 70%;
-                        width: 48%;
-                        height: auto;
-                    }
-                }
             }
         }
     }
@@ -99,6 +88,7 @@
         line-height: 48px;
     }
 }
+
 
 @media (max-width: 768px) {
     .top {

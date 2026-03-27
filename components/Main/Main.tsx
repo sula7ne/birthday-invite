@@ -1,6 +1,6 @@
 import Bottom from "./Bottom/Bottom";
 import Center from "./Center/Center";
-import Confetti from "../Animations/Confetti";
+import Confetti from "../Animations/Confetti/Confetti";
 import Top from "./Top/Top";
 import styles from "@/components/Main/Main.module.scss"
 

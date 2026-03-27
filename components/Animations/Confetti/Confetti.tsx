@@ -3,11 +3,11 @@
 import { useEffect, useRef } from "react";
 
 import confetti from "canvas-confetti";
-import styles from "@/components/Animations/Confetti.module.scss";
+import styles from "@/components/Animations/Confetti/Confetti.module.scss";
 import { useAppSelector } from "@/state/hooks";
 
 const Confetti = () => {
-const { isIntroOpening } = useAppSelector(state => state.app);
+    const { isIntroOpening } = useAppSelector(state => state.app);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
     useEffect(() => {
@@ -59,7 +59,7 @@ const { isIntroOpening } = useAppSelector(state => state.app);
             startTimeout = setTimeout(() => {
                 fireCannons();
                 renderFrame();
-            }, 1400); 
+            }, 1500); 
 
             return () => {
                 clearTimeout(startTimeout);

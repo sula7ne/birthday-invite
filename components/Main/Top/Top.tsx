@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
 
+import Cake from "../../Animations/Cake/Cake";
 import Image from "next/image";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import boardImg from "@/assets/images/board.svg"
-import cakeImg from "@/assets/images/cake.png"
+import boardImg from "@/assets/images/board.svg";
 import gsap from "gsap";
-import hatImg from "@/assets/images/hat.svg"
-import presentImg from "@/assets/images/present.svg"
+import hatImg from "@/assets/images/hat.svg";
+import presentImg from "@/assets/images/present.svg";
 import styles from "@/components/Main/Top/Top.module.scss";
 
 const Top = () => {
@@ -14,22 +14,18 @@ const Top = () => {
     
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
-
         const ctx = gsap.context(() => {
-            const tl = gsap.timeline({
-                scrollTrigger: {
+            gsap.fromTo(descriptionRef.current, 
+                { opacity: 0, y: 30 }, 
+                { opacity: 1, y: 0, duration: 0.8, ease: "power3.out",
+                  scrollTrigger: {
                     trigger: descriptionRef.current,
                     start: "top 100%", 
                     toggleActions: "play none none reverse",
+                  }
                 }
-            });
-
-            tl.fromTo(descriptionRef.current, 
-                { opacity: 0, y: 30 }, 
-                { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }
-            )
+            );
         }, descriptionRef);
-
         return () => ctx.revert();
     }, []);
     
@@ -41,25 +37,16 @@ const Top = () => {
             
             <div className={styles.wrapper}>
                 <div className={styles.title}>
-                    <h1 >Sagynysh ’s b ’day party</h1>
+                    <h1>Sagynysh’s b’day party</h1>
                 </div>
             
                 <div className={styles.content}>
                     <div className={styles.center}>
-                        <div className={styles.cake}>
-                            <Image src={cakeImg} alt="cake" />
-                        </div>
+                        <Cake />
 
                         <div className={styles.container}>
-                            <div className={styles.date}>
-                                <span>07</span>
-                                <span>04</span>
-                                <span>26</span>
-                            </div>
-
-                            <div className={styles.time}>
-                                20:00
-                            </div>
+                            <div className={styles.date}><span>07</span><span>04</span><span>26</span></div>
+                            <div className={styles.time}>20:00</div>
                         </div>
                     </div>
                 </div>

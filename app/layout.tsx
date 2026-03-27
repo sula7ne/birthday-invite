@@ -3,6 +3,7 @@ import "@/assets/styles/globals.scss";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { Providers } from "./providers";
+import { ScrollReset } from "@/components/ScrollReset";
 
 const montserrat = Montserrat({
     subsets: ["latin", "cyrillic"],
@@ -19,7 +20,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <html lang="en">
         <body className={montserrat.variable}>
-            <Providers>{children}</Providers>
+            <Providers>
+                <ScrollReset />
+                {children}
+            </Providers>
         </body>
         </html>
     );

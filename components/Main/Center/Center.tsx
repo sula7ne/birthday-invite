@@ -25,7 +25,7 @@ const Center = () => {
                 const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: yearsRef.current,
-                        start: "top 40%",
+                        start: "top 60%",
                         toggleActions: "play none none none",
                     }
                 });
