@@ -60,7 +60,7 @@ const Home = () => {
 			{/* !isIntro */}
 			{!isLoading && <Main audioRef={audioRef} />}
 
-			<audio ref={audioRef} src={audioPath} preload="auto" playsInline loop />
+			<audio ref={audioRef} src={audioPath} preload="auto" loop />
 		</div>
 	);
 }
