@@ -19,6 +19,10 @@ const Home = () => {
             if (document.hidden) {
                 audioRef.current?.pause();
             } else { 
+				if (audioRef.current && audioRef.current.paused && !isIntro) {
+					return;
+				}
+
 				audioRef.current?.play();
 			}
         };
